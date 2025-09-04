@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# production
+.next/
+out/
+dist/
+
+# firebase local stuff
+.firebase/
+.firebaserc
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

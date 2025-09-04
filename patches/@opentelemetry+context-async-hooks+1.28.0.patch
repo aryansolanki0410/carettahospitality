@@ -1,0 +1,42 @@
+diff --git a/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js b/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
+index 28b611e..7038e3e 100644
+--- a/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
++++ b/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
+@@ -16,7 +16,12 @@
+  */
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.AsyncHooksContextManager = void 0;
+-const asyncHooks = require("async_hooks");
++let asyncHooks;
++try {
++    asyncHooks = require("async_hooks");
++} catch (e) {
++    // async_hooks is not available in all environments, so we'll just handle the error.
++}
+ const AbstractAsyncHooksContextManager_1 = require("./AbstractAsyncHooksContextManager");
+ class AsyncHooksContextManager extends AbstractAsyncHooksContextManager_1.AbstractAsyncHooksContextManager {
+     constructor() {
+diff --git a/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js b/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js
+index 98b254a..558a5f3 100644
+--- a/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js
++++ b/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js
+@@ -13,7 +13,12 @@
+  * KIND, either express or implied.  See the License for the
+  * specific language governing permissions and limitations
+  * under the License.
+- */
+-import * as asyncHooks from 'async_hooks';
+-import { AbstractAsyncHooksContextManager } from './AbstractAsyncHooksContextManager';
+-export class AsyncHooksContextManager extends AbstractAsyncHooksContextManager {
++ */import*as asyncHooks from"async_hooks";import{AbstractAsyncHooksContextManager}from"./AbstractAsyncHooksContextManager";export class AsyncHooksContextManager extends AbstractAsyncHooksContextManager{constructor(){super();this._asyncHook=asyncHooks.createHook({init:this._init.bind(this),before:this._before.bind(this),after:this._after.bind(this),destroy:this._destroy.bind(this),promiseResolve:this._promiseResolve.bind(this)});}
++let asyncHooks;
++try {
++    asyncHooks = require("async_hooks");
++} catch (e) {
++    // async_hooks is not available in all environments, so we'll just handle the error.
++}
++import { AbstractAsyncHooksContextManager } from './AbstractAsyncHooksContextManager';
++export class AsyncHooksContextManager extends AbstractAsyncHooksContextManager {
+     constructor() {
+         super();
+         this._asyncHook = asyncHooks.createHook({
